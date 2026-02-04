@@ -10,7 +10,7 @@ collections:
     label: 'Pages'
     folder: '_content'
     create: true
-    slug: '{{slug}}'
+    slug: 'home'
     fields:
       - label: 'Title'
         name: 'title'

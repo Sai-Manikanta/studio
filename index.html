@@ -73,15 +73,43 @@
 </head>
 <body>
     <div class="container">
-        <h1 id="title">Welcome to Studio</h1>
-        <p id="content">This is a beautiful studio page powered by Decap CMS. You can edit all the content on this page directly from the admin panel. Click the edit button in the admin panel to get started!</p>
-        <img id="featured-image" src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80" alt="Studio workspace">
+        <h1 id="title">Loading...</h1>
+        <p id="content">Loading content...</p>
+        <img id="featured-image" src="" alt="Studio workspace" style="display:none;">
         
         <div class="cms-notice">
             <p>✏️ <strong>Edit this page:</strong> Visit <a href="/admin/">/admin/</a> to edit this content using Decap CMS</p>
         </div>
     </div>
     <script>
+      // Load content from CMS
+      async function loadContent() {
+        try {
+          const response = await fetch('./_content/home.json');
+          if (response.ok) {
+            const data = await response.json();
+            document.getElementById('title').textContent = data.title || 'Welcome to Studio';
+            document.getElementById('content').innerHTML = data.content || 'No content yet';
+            
+            const img = document.getElementById('featured-image');
+            if (data.featured_image) {
+              img.src = data.featured_image;
+              img.style.display = 'block';
+            }
+          } else {
+            // Fallback to defaults if file not found
+            document.getElementById('title').textContent = 'Welcome to Studio';
+            document.getElementById('content').innerHTML = 'This is a beautiful studio page powered by Decap CMS. Edit content in the admin panel.';
+          }
+        } catch (error) {
+          console.log('Content not loaded, using defaults');
+          document.getElementById('title').textContent = 'Welcome to Studio';
+          document.getElementById('content').innerHTML = 'Click Edit in the admin panel to add content.';
+        }
+      }
+      
+      loadContent();
+      
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (user) {
