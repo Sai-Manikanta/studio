@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio - Decap CMS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 3rem;
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .cms-notice {
+            background: #e8f4f8;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 4px;
+            color: #333;
+            font-size: 0.9rem;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="title">Welcome to Studio</h1>
+        <p id="content">This is a beautiful studio page powered by Decap CMS. You can edit all the content on this page directly from the admin panel. Click the edit button in the admin panel to get started!</p>
+        <img id="featured-image" src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80" alt="Studio workspace">
+        
+        <div class="cms-notice">
+            <p>✏️ <strong>Edit this page:</strong> Visit <a href="/admin/">/admin/</a> to edit this content using Decap CMS</p>
+        </div>
+    </div>
+</body>
+</html>

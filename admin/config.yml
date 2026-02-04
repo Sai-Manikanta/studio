@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: 'images'
+public_folder: '/images'
+
+collections:
+  - name: 'pages'
+    label: 'Pages'
+    folder: '_content'
+    create: true
+    slug: '{{slug}}'
+    format: 'json'
+    fields:
+      - label: 'Title'
+        name: 'title'
+        widget: 'string'
+      - label: 'Content'
+        name: 'content'
+        widget: 'markdown'
+      - label: 'Featured Image'
+        name: 'featured_image'
+        widget: 'image'
