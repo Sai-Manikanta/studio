@@ -85,7 +85,8 @@
       // Load content from CMS
       async function loadContent() {
         try {
-          const response = await fetch('./_content/home.json');
+          // Try JSON first
+          let response = await fetch('./_content/home.json');
           if (response.ok) {
             const data = await response.json();
             document.getElementById('title').textContent = data.title || 'Welcome to Studio';
@@ -96,11 +97,44 @@
               img.src = data.featured_image;
               img.style.display = 'block';
             }
-          } else {
-            // Fallback to defaults if file not found
-            document.getElementById('title').textContent = 'Welcome to Studio';
-            document.getElementById('content').innerHTML = 'This is a beautiful studio page powered by Decap CMS. Edit content in the admin panel.';
+            return;
           }
+          
+          // Try markdown file
+          response = await fetch('./_content/home.md');
+          if (response.ok) {
+            const text = await response.text();
+            // Parse front matter
+            const match = text.match(/^---\s*\n([\s\S]*?)\n---/);
+            if (match) {
+              const frontMatter = match[1];
+              const lines = frontMatter.split('\n');
+              const data = {};
+              
+              lines.forEach(line => {
+                const colonIndex = line.indexOf(':');
+                if (colonIndex > -1) {
+                  const key = line.substring(0, colonIndex).trim();
+                  const value = line.substring(colonIndex + 1).trim();
+                  data[key] = value;
+                }
+              });
+              
+              document.getElementById('title').textContent = data.title || 'Welcome to Studio';
+              document.getElementById('content').innerHTML = data.content || 'No content yet';
+              
+              const img = document.getElementById('featured-image');
+              if (data.featured_image) {
+                img.src = data.featured_image;
+                img.style.display = 'block';
+              }
+            }
+            return;
+          }
+          
+          // Fallback to defaults if file not found
+          document.getElementById('title').textContent = 'Welcome to Studio';
+          document.getElementById('content').innerHTML = 'This is a beautiful studio page powered by Decap CMS. Edit content in the admin panel.';
         } catch (error) {
           console.log('Content not loaded, using defaults');
           document.getElementById('title').textContent = 'Welcome to Studio';
